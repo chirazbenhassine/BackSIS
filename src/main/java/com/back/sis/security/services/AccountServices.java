@@ -1,4 +1,4 @@
-package com.back.sis.security;
+package com.back.sis.security.services;
 
 import com.back.sis.entities.AppRole;
 import com.back.sis.entities.AppUser;
@@ -35,6 +35,7 @@ public interface AccountServices {
     /**
      * method return Users "List" API REST
      * @return ListUsers
+     * Recherche user dans la BD : saisie username et password cette methode recupére user etc
      */
     List<AppUser> listUsers();
 }

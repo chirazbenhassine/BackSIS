@@ -1,9 +1,11 @@
-package com.back.sis.security;
+package com.back.sis.security.services;
 
 import com.back.sis.entities.AppRole;
 import com.back.sis.entities.AppUser;
 import com.back.sis.repositories.AppRoleRepository;
 import com.back.sis.repositories.AppUserRepository;
+import com.back.sis.security.services.AccountServices;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +20,21 @@ import java.util.List;
 
 @Transactional
 public class AccountServicesImpl implements AccountServices {
-    public AccountServicesImpl(AppRoleRepository appRoleRepository, AppUserRepository appUserRepository) {
-        this.appRoleRepository = appRoleRepository;
-        this.appUserRepository = appUserRepository;
-    }
-
     private AppRoleRepository appRoleRepository;
     private AppUserRepository appUserRepository;
+   // private PasswordEncoder passwordEncoder;
+
+    public AccountServicesImpl(AppRoleRepository appRoleRepository, AppUserRepository appUserRepositoryder) {
+        this.appRoleRepository = appRoleRepository;
+        this.appUserRepository = appUserRepository;
+        //this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public AppUser addNewUser(AppUser appUser) {
+        //pour encoder pw à chaque création de user
+       // String pw=appUser.getPassword();
+        //appUser.setPassword(passwordEncoder.encode(pw));
         return appUserRepository.save(appUser);
     }
 
@@ -50,6 +58,7 @@ public class AccountServicesImpl implements AccountServices {
 
     @Override
     public List<AppUser> listUsers() {
+
         return appUserRepository.findAll();
     }
 }
