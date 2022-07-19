@@ -57,33 +57,33 @@ public class securiteConfig extends WebSecurityConfigurerAdapter {
         /* pour auth statefull, avec la session :
          * il faut laisser (mettre) http.csrf.disable car elle protége contre les attaques de type csrf
          */
-        http.csrf().disable();
+        //http.csrf().disable();
         /* Si on désactive cette ligne en dessus, on remarque que le formulaire affiche: le serveur lui donne
         mais si on fait inspecter: on remarque que il y a champ name ="csrf token" de type ="hidden" ,
         car chaque fois on demande une page, il génére un token
         et a chaque authentification il compare le token s'il est la meme ou non (voir explication de stateless auth)
          */
-        http.cors().and().csrf().disable();
-        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Utilisation de auth Stateless : gérer les sessions en utilisant JWT tOKEN
+        //http.cors().and().csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Utilisation de auth Stateless : gérer les sessions en utilisant JWT tOKEN
         http.headers().frameOptions().disable();
-        //http.authorizeRequests().antMatchers("/phpmyadmin/*");
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().antMatchers("/phpmyadmin/*");
+        //http.authorizeRequests().anyRequest().permitAll();
         /* pour accéder à l'authentifiaction il faut passer par http.formlogin()
         en SpringSecurity quand user va accéder à une ressources
         qui n'a pas le droit, il lui affiche un formulaire d'authentification
         ==> dans ce cas un formulaire est formé par le SpringSecurity par defaut
         */
-        http.formLogin(); /* on va désactiver car ne fonctionne plus en auth stateless, on va développer coté front*/
-        //http.authorizeRequests().anyRequest().authenticated(); //authenticated cad chaque systéme va passer par authenfication
+        //http.formLogin(); /* on va désactiver car ne fonctionne plus en auth stateless, on va développer coté front*/
+        http.authorizeRequests().anyRequest().authenticated(); //authenticated cad chaque systéme va passer par authenfication
         //Pour indiquer que il y a un filtre installé
-       //http.addFilter(new jwtAuthentificationFilter(authenticationManagerBean()));
+       http.addFilter(new jwtAuthentificationFilter(authenticationManagerBean()));
     }
 
-   /* @Override
+   @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    */
+
 
 
 }

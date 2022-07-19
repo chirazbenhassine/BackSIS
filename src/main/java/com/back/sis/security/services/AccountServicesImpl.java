@@ -22,19 +22,19 @@ import java.util.List;
 public class AccountServicesImpl implements AccountServices {
     private AppRoleRepository appRoleRepository;
     private AppUserRepository appUserRepository;
-   // private PasswordEncoder passwordEncoder;
+   private PasswordEncoder passwordEncoder;
 
-    public AccountServicesImpl(AppRoleRepository appRoleRepository, AppUserRepository appUserRepositoryder) {
+    public AccountServicesImpl(AppRoleRepository appRoleRepository, AppUserRepository appUserRepositoryder, PasswordEncoder passwordEncoder) {
         this.appRoleRepository = appRoleRepository;
         this.appUserRepository = appUserRepository;
-        //this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public AppUser addNewUser(AppUser appUser) {
         //pour encoder pw à chaque création de user
-       // String pw=appUser.getPassword();
-        //appUser.setPassword(passwordEncoder.encode(pw));
+       String pw=appUser.getPassword();
+       appUser.setPassword(passwordEncoder.encode(pw));
         return appUserRepository.save(appUser);
     }
 

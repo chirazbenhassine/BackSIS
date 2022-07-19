@@ -12,12 +12,12 @@ public class BackSisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackSisApplication.class, args);
 	}
-/*
+
 @Bean
  PasswordEncoder passwordEncoder(){
 	return new BCryptPasswordEncoder();
 }
-*/
+
 
 /** @Bean
 	CommandLineRunner start(AccountServices accountServices){
